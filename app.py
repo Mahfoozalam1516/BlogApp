@@ -10,7 +10,7 @@ load_dotenv()
 
 # Initialize Flask
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = os.environ.get('SECRET_KEY', 'XGC2TXZnH/zm3TZ7SnSdLwB07BIA4dcW')
 
 # Configure Gemini
 genai.configure(api_key="AIzaSyBQi4LrGW9pFirEiTnFw3RONXz39nUpghQ")  # Or paste your key directly for testing
@@ -857,4 +857,8 @@ def save_edits():
         }), 500
 
 if __name__ == '__main__':
+    # Use this for local development
     app.run(debug=True)
+else:
+    # This is used by Vercel
+    app = app
